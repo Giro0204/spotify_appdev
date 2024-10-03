@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Mini Spotify</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Comic Sans MS', cursive, sans-serif;
+    }
+
+    body {
+      background-color: #f3e5f5; /* Light purple */
+      color: #ffffff;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      flex-direction: column;
+      background-image: url('https://www.winxclub.com/sites/all/themes/winx/images/bg-winx.png'); /* Magical background */
+      background-size: cover;
+    }
+
+    h1 {
+      margin-bottom: 20px;
+      font-size: 3rem;
+      color: #ff4081; /* Pinkish to match Winx vibe */
+      text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+    }
+
+    form {
+      background-color: #ce93d8; /* Light lavender */
+      padding: 20px;
+      border-radius: 15px;
+      margin-bottom: 30px;
+      width: 100%;
+      max-width: 500px;
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+      border: 2px solid #d1c4e9; /* Soft border */
+    }
+
+    input[type="file"] {
+      color: #ffffff;
+      margin-bottom: 10px;
+      font-weight: bold;
+    }
+
+    button {
+      background-color: #ab47bc; /* Bold purple for buttons */
+      color: #fff;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    button:hover {
+      background-color: #7b1fa2; /* Darker purple on hover */
+      transform: scale(1.05);
+    }
+
+    .playlist {
+      width: 100%;
+      max-width: 500px;
+      background-color: #ba68c8; /* Soft purple for playlist */
+      border-radius: 15px;
+      padding: 20px;
+      box-shadow: 0 6px 12px rgba(0, 0, 0, 0.3);
+      border: 2px solid #f8bbd0; /* Border around playlist */
+    }
+
+    .playlist h2 {
+      margin-bottom: 15px;
+      font-size: 1.8rem;
+      color: #ff80ab; /* Pink for headers */
+    }
+
+    .playlist ul {
+      list-style: none;
+    }
+
+    .playlist li {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      background-color: #ea80fc; /* Vivid lavender for items */
+      margin-bottom: 10px;
+      padding: 15px;
+      border-radius: 10px;
+      transition: background-color 0.3s, transform 0.2s;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    }
+
+    .playlist li:hover {
+      background-color: #d500f9; /* Bright purple on hover */
+      transform: scale(1.03);
+    }
+
+    .playlist li strong {
+      color: #ffffff;
+      font-weight: bold;
+    }
+
+    audio {
+      margin-left: 10px;
+    }
+
+    p {
+      color: #f8bbd0; /* Light pink for text */
+    }
+  </style>
+</head>
+<body>
+  <h1>Mini Spotify</h1>
+
+  <form action="/upload" method="POST" enctype="multipart/form-data">
+    <input type="file" name="music" accept="audio/*" required>
+    <button type="submit">Upload</button>
+  </form>
+
+  <div class="playlist">
+    <% if (songs.length > 0) { %>
+      <h2>Your Playlist</h2>
+      <ul>
+        <% songs.forEach(song => { %>
+          <li>
+            <strong><%= song.title %></strong>
+            <audio controls>
+              <source src="<%= song.file_path %>" type="audio/mpeg">
+              Your browser does not support the audio tag.
+            </audio>
+          </li>
+        <% }) %>
+      </ul>
+    <% } else { %>
+      <p>No songs uploaded yet.</p>
+    <% } %>
+  </div>
+</body>
+</html>
